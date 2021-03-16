@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>2D Example</title>
+</head>
+<body>
+  <h1>2D Example</h1>
+  <a href="index.html">Back to Homepage</a>
+  <p>This is an 2D example page. Try it out.</p>
+  <canvas id="myCanvas">Your browser doesn't support WebGL.</canvas>
+
+  <div class="slidecontainer">
+    <p>x: <span id="xOutput"></span></p>
+    <input id="xInput" type="range" min="0" max="400" value="200">
+    <p>y: <span id="yOutput"></span></p>
+    <input id="yInput" type="range" min="0" max="300" value="100">
+    <p>rotation: <span id="rotOutput"></span></p>
+    <input id="rotInput" type="range" min="0" max="360" value="0">
+    <p>scaleX: <span id="scaleXOutput"></span></p>
+    <input id="scaleXInput" type="range" min="-5" max="5" value="0.5" step="0.1">
+    <p>scaleY: <span id="scaleYOutput"></span></p>
+    <input id="scaleYInput" type="range" min="-5" max="5" value="0.3" step="0.1">
+  </div>
+
+  <script id="vertex-shader-2d" type="x-shader/x-vertex">
+    attribute vec2 a_position;
+
+    uniform mat3 u_matrix;
+
+    void main() {
+      gl_Position = vec4((u_matrix * vec3(a_position, 1)).xy, 0, 1);
+    }
+  </script>
+
+  <script id="fragment-shader-2d" type="x-shader/x-fragment">
+    // fragment shaders don't have a default precision so we need
+    // to pick one. mediump is a good default
+    precision mediump float;
+
+    uniform vec4 u_color;
+
+    void main() {
+      // gl_FragColor is a special variable a fragment shader
+      // is responsible for setting
+      gl_FragColor = u_color;
+    }
+
+  </script>
+  <script src="js/2d-example.js"></script>
+</body>
+</html>

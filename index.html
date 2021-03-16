@@ -1,0 +1,97 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+
+  <script src="https://greggman.github.io/webgl-lint/webgl-lint.js" crossorigin></script>
+</head>
+
+<body>
+
+<!-- Add your site or application content here -->
+<h1>HTML5 WebGL Basics</h1>
+<p>I'm following the tutorial from <a href="https://webglfundamentals.org/webgl/lessons/webgl-fundamentals.html">WebGL
+  Fundamentals</a>.</p>
+<ul>
+  <li><a href="2d-example.html">Go to 2D</a></li>
+  <li><a href="3d-example.html">Go to 3D</a></li>
+  <li><a href="camera-example.html">Go to Camera Control</a></li>
+  <li><a href="animation-example.html">Go to Animation</a></li>
+  <li><a href="image-processing.html">Go to Image Processing</a></li>
+</ul>
+<!-- This code gets moved in a separate file. -->
+<h2>3D Example</h2>
+
+<canvas id="myCanvas">Your browser doesn't support WebGL.</canvas>
+
+<script id="vertex-shader-3d" type="x-shader/x-vertex">
+  attribute vec4 a_position;
+  attribute vec4 a_color;
+
+  uniform mat4 u_matrix;
+
+  varying vec4 v_color;
+
+  void main() {
+    gl_Position = u_matrix * a_position;
+
+    // Pass the color to the fragment shader.
+    v_color = a_color;
+  }
+</script>
+
+<script id="fragment-shader-3d" type="x-shader/x-fragment">
+  // fragment shaders don't have a default precision so we need
+  // to pick one. mediump is a good default
+  precision mediump float;
+
+  varying vec4 v_color;
+
+  void main() {
+    // gl_FragColor is a special variable a fragment shader
+    // is responsible for setting
+    gl_FragColor = v_color;
+  }
+
+</script>
+
+<!-- Up till here -->
+
+<script src="js/vendor/modernizr-3.11.2.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/animation-example.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+<script>
+  window.ga = function () {
+    ga.q.push(arguments)
+  };
+  ga.q = [];
+  ga.l = +new Date;
+  ga('create', 'UA-XXXXX-Y', 'auto');
+  ga('set', 'anonymizeIp', true);
+  ga('set', 'transport', 'beacon');
+  ga('send', 'pageview')
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>

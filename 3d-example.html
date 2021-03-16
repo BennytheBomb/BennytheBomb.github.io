@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3D Example</title>
+</head>
+<body>
+<h2>3D Example</h2>
+<a href="index.html">Back to Homepage</a>
+<p>This is an 2D example page. Try it out.</p>
+
+<canvas id="myCanvas">Your browser doesn't support WebGL.</canvas>
+
+<div class="slidecontainer">
+  <p>fieldOfView: <span id="fovOutput"></span></p>
+  <input id="fovInput" type="range" value="90">
+  <p>x: <span id="xOutput"></span></p>
+  <input id="xInput" type="range" value="200">
+  <p>y: <span id="yOutput"></span></p>
+  <input id="yInput" type="range" value="100">
+  <p>z: <span id="zOutput"></span></p>
+  <input id="zInput" type="range" value="50">
+  <p>angleX: <span id="angleXOutput"></span></p>
+  <input id="angleXInput" type="range" min="0" max="360" value="0">
+  <p>angleY: <span id="angleYOutput"></span></p>
+  <input id="angleYInput" type="range" min="0" max="360" value="0">
+  <p>angleZ: <span id="angleZOutput"></span></p>
+  <input id="angleZInput" type="range" min="0" max="360" value="0">
+  <p>scaleX: <span id="scaleXOutput"></span></p>
+  <input id="scaleXInput" type="range" min="-5" max="5" value="1" step="0.1">
+  <p>scaleY: <span id="scaleYOutput"></span></p>
+  <input id="scaleYInput" type="range" min="-5" max="5" value="1" step="0.1">
+  <p>scaleZ: <span id="scaleZOutput"></span></p>
+  <input id="scaleZInput" type="range" min="-5" max="5" value="1" step="0.1">
+</div>
+
+<script id="vertex-shader-3d" type="x-shader/x-vertex">
+  attribute vec4 a_position;
+  attribute vec4 a_color;
+
+  uniform mat4 u_matrix;
+
+  varying vec4 v_color;
+
+  void main() {
+    gl_Position = u_matrix * a_position;
+
+    // Pass the color to the fragment shader.
+    v_color = a_color;
+  }
+</script>
+
+<script id="fragment-shader-3d" type="x-shader/x-fragment">
+  // fragment shaders don't have a default precision so we need
+  // to pick one. mediump is a good default
+  precision mediump float;
+
+  varying vec4 v_color;
+
+  void main() {
+    // gl_FragColor is a special variable a fragment shader
+    // is responsible for setting
+    gl_FragColor = v_color;
+  }
+
+</script>
+  <script src="js/3d-example.js"></script>
+</body>
+</html>
